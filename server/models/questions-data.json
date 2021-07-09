@@ -1,0 +1,43 @@
+[
+  {
+    "question": "If soccer is called football in England, what is American football called in England?",
+    "options": [
+      "American football",
+      "Combball",
+      "Handball",
+      "Touchdown"
+    ],
+    "answer": "American football"
+  },
+  {
+    "question": "What is the largest country in the world?",
+    "options": [
+      "Russia",
+      "Canada",
+      "China",
+      "United States"
+    ],
+    "answer": "Russia"
+  },
+  {
+    "question": "An organic compound is considered an alcohol if it has what functional group?",
+    "options": [
+      "Hydroxyl",
+      "Carbonyl",
+      "Alkyl",
+      "Aldehyde"
+    ],
+    "answer": "Hydroxyl"
+  },
+  {
+    "question": "What is the 100th digit of Pi?",
+    "options": [
+      "9",
+      "4",
+      "7",
+      "2"
+    ],
+    "answer": "9"
+  }
+]
+
