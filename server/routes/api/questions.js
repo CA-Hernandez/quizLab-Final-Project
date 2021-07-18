@@ -39,11 +39,17 @@ const shuffleArray = require('../../utils/shuffle');
  * ]
  * 
  */
+
+
 router.get('/', (req, res) => {
-  // Remove the lines below and write your implementation
-  res.status(500).send({
-    error: 'not implemented'
-  })
+  try{
+  let remAnswer = [...Questions];
+  questionsUpdated = remAnswer.map(question => ({question:question.question, options:question.options,id: question.id}))
+   return res.send(questionsUpdated)  
+  } 
+  catch(error){
+  return res.status(500).send({"error": error})
+}
 })
 
 /**
@@ -58,9 +64,16 @@ router.get('/', (req, res) => {
  */
 router.get('/count', (req, res) => {
   // Remove the lines below and write your implementation
-  res.status(500).send({
-    error: 'not implemented'
-  })
+  try{
+    let remAnswer = [...Questions];
+    let count = remAnswer.length
+
+     return res.json({count: count})  
+    } 
+    catch(error){
+    return res.status(500).send({"error": error})
+  }
+  
 })
 
 /**
