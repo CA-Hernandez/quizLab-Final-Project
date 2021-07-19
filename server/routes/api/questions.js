@@ -91,12 +91,18 @@ router.get('/count', (req, res) => {
  * }
  */
 router.get('/:qId', (req, res) => {
-  // Remove the lines below and write your implementation
-  res.status(500).send({
-    error: 'not implemented'
-  })
+  try{
+     const _id = req.params.qId
+     let remAnswer = [...Questions];
+     questionsUpdated = remAnswer.map(question => ({question:question.question, options:question.options,id: question.id}))
+     const index = questionsUpdated.findIndex(x => x.id === _id)
+     return res.send(questionsUpdated[index])  
+    } 
+    catch(error){
+    return res.status(500).send({"error": error})
+  }
+  
 })
-
 
 /**
  * Route details
