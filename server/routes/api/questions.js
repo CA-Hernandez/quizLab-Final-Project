@@ -12,6 +12,9 @@
 
 const express = require('express');
 const router = express.Router();
+router.use(express.json()) // for parsing application/json
+router.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+
 
 // Question Data
 const Questions = require('../../models/questions-data.json')
@@ -93,7 +96,7 @@ router.get('/count', (req, res) => {
 router.get('/:qId', (req, res) => {
   try{
      const _id = req.params.qId
-     let remAnswer = [...Questions];
+     let remAnswer = [...Questions]; 
      questionsUpdated = remAnswer.map(question => ({question:question.question, options:question.options,id: question.id}))
      const index = questionsUpdated.findIndex(x => x.id === _id)
      return res.send(questionsUpdated[index])  
@@ -103,6 +106,7 @@ router.get('/:qId', (req, res) => {
   }
   
 })
+
 
 /**
  * Route details
@@ -125,11 +129,49 @@ router.get('/:qId', (req, res) => {
  *    total: (how many questions were there)
  * }
  */
-router.post('/result', (req, res) => {
-  // Remove the lines below and write your implementation
-  res.status(500).send({
-    error: 'not implemented'
-  })
+  router.post('/result', (req, res) => {
+  try{
+    let answerList = [];    //declare empty answer list
+    let userList = [];      
+    for(let i = 0; i < Questions.length; i++){
+      answerList.push(Questions[i].answer);
+    }
+
+   // let userList= Object.entries(req.body)
+   for (const [key,value] of Object.entries(req.body)) {
+      userList.push(`${value}`);
+  }
+    let score = 0;
+    console.log(answerList);
+    console.log(userList)
+    count = Questions.length;
+
+    for (let i = 0; i<count; i++)
+    {
+      if (answerList[i] == userList[i])
+      {
+        score++;
+      }
+
+    } 
+
+    result = null;
+    scorePercent = (score/count)*100;
+    if(scorePercent >50)
+    {
+      result="passed";
+    }
+    else 
+    {
+      result="failed"
+    }
+  
+    res.send({summary: result, score: score, total: Questions.length});
+   } 
+   catch(error){
+   return res.status(500).send({"error": error})
+ }
+ 
 })
 
 
